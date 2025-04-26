@@ -21,7 +21,7 @@ jobs:
         cd Example
         xcodebuild build \
           -workspace DIContainer.xcworkspace \
-          -scheme DIContainer_Example \
+          -scheme DIContainer-Example \
           -destination 'platform=iOS Simulator,name=iPhone 14' \
           -configuration Debug \
           -xcconfig DisableSigning.xcconfig
