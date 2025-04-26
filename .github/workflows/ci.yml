@@ -22,7 +22,7 @@ jobs:
         xcodebuild build \
           -workspace DIContainer.xcworkspace \
           -scheme DIContainer-Example \
-          -destination 'platform=iOS Simulator,name=iPhone 14' \
+          -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
           -configuration Debug \
           -xcconfig DisableSigning.xcconfig
 
@@ -33,7 +33,7 @@ jobs:
           -workspace DIContainer.xcworkspace \
           -scheme DIContainer-Example \
           -only-testing:DIContainer_Tests \
-          -destination 'platform=iOS Simulator,name=iPhone 14' \
+          -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
           -configuration Debug \
           -xcconfig DisableSigning.xcconfig
 
