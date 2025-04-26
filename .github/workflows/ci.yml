@@ -1,0 +1,32 @@
+# 文件：.github/workflows/ci.yml
+
+name: CI
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Xcode
+      run: sudo xcode-select -s /Applications/Xcode_15.0.app  # 指定 Xcode 版本
+
+    - name: Build app target
+      run: |
+        xcodebuild build \
+          -scheme DIContainer_Example \
+          -destination 'platform=iOS Simulator,name=iPhone 16'
+
+    - name: Run unit tests
+      run: |
+        xcodebuild test \
+          -scheme DIContainer_Example \
+          -only-testing:DIContainer_Tests \
+          -destination 'platform=iOS Simulator,name=iPhone 16'
+
+    # Note: CI failure will block merging PRs by default on GitHub, no extra config needed.
