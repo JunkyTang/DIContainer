@@ -18,15 +18,19 @@ jobs:
 
     - name: Build app target
       run: |
+        cd Example
         xcodebuild build \
+          -workspace DIContainer.xcworkspace \
           -scheme DIContainer_Example \
-          -destination 'platform=iOS Simulator,name=iPhone 16'
+          -destination 'platform=iOS Simulator,name=iPhone 14'
 
     - name: Run unit tests
       run: |
+        cd Example
         xcodebuild test \
+          -workspace DIContainer.xcworkspace \
           -scheme DIContainer_Example \
           -only-testing:DIContainer_Tests \
-          -destination 'platform=iOS Simulator,name=iPhone 16'
+          -destination 'platform=iOS Simulator,name=iPhone 14'
 
     # Note: CI failure will block merging PRs by default on GitHub, no extra config needed.
