@@ -24,7 +24,7 @@ jobs:
           -scheme DIContainer_Example \
           -destination 'platform=iOS Simulator,name=iPhone 14' \
           -configuration Debug \
-          -xcconfig path/to/DisableSigning.xcconfig
+          -xcconfig DisableSigning.xcconfig
 
     - name: Run unit tests
       run: |
