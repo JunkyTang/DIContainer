@@ -26,7 +26,7 @@ Designed for modular architecture, Swift Concurrency compatibility, and easy uni
 ### CocoaPods
 
 ```ruby
-pod 'DIContainer'
+pod 'DIContainer', :git => 'https://github.com/JunkyTang/DIContainer.git', :tag => 'v1.0.0'
 ```
 
 (Or include manually if it's a standalone module.)
