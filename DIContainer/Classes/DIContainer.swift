@@ -31,4 +31,9 @@ public class DIContainer {
         guard let impl = modules[key] as? T else { throw Exception.moduleNotFound }
         return impl
     }
+    
+    // New function to clear all modules
+    public func clearModules() {
+        modules.removeAll()
+    }
 }
