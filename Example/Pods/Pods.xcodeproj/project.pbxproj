@@ -10,6 +10,7 @@
 		03AB378103BEA40E569F8A31B6936D53 /* Pods-DIContainer_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B62ECDFF7EB14C3056C55409B20F710 /* Pods-DIContainer_Tests-dummy.m */; };
 		18FB0C9360E7CA3A420F99E8DBB2422A /* DIContainer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AF8B3601EB4EDBEB9F5264AAABC36E9 /* DIContainer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1ED817E7C1A5856E2C6CC4C00DF97E4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		3B71C9F12DBF1F3800C7B4FE /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B71C9F02DBF1F3800C7B4FE /* PropertyWrapper.swift */; };
 		3D6880D8917EF630CBD02A2E481EFB7D /* DIContainer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E774E2EBAC74C5252F373903410269 /* DIContainer-dummy.m */; };
 		5582DBCF5E108E8A6D6B384C8173AB49 /* Pods-DIContainer_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D0234C8272A475F985B200C560AC4643 /* Pods-DIContainer_Example-dummy.m */; };
 		6C13D41C21BDC24B06505C100D30305A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
@@ -49,6 +50,7 @@
 		348311752CF4C818C92AD6F57D8F3965 /* Pods-DIContainer_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DIContainer_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		384C184DDBFD0B0EA48617126354F04E /* Exception.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Exception.swift; path = DIContainer/Classes/Exception.swift; sourceTree = "<group>"; };
 		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		3B71C9F02DBF1F3800C7B4FE /* PropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyWrapper.swift; sourceTree = "<group>"; };
 		454F2278E609429D4F8B759B0F822824 /* DIContainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DIContainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B62ECDFF7EB14C3056C55409B20F710 /* Pods-DIContainer_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DIContainer_Tests-dummy.m"; sourceTree = "<group>"; };
 		4FFBA0AF8710FCBEC2506706F6CB7F36 /* DIContainer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DIContainer-prefix.pch"; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			children = (
 				57E2460D24B06E6724C785E0514D9209 /* DIContainer.swift */,
 				384C184DDBFD0B0EA48617126354F04E /* Exception.swift */,
+				3B71C9F02DBF1F3800C7B4FE /* PropertyWrapper.swift */,
 				D3AE6F4765F3DFE9E7BA6F3DDC4FD11C /* Pod */,
 				192CABC05B11F3F7F9DDB2C2BD0DCB12 /* Support Files */,
 			);
@@ -372,6 +375,7 @@
 			files = (
 				EEDCD43E1467B4E6315FC03CAE96C9EC /* DIContainer.swift in Sources */,
 				3D6880D8917EF630CBD02A2E481EFB7D /* DIContainer-dummy.m in Sources */,
+				3B71C9F12DBF1F3800C7B4FE /* PropertyWrapper.swift in Sources */,
 				F6D01ED4214E39C9439BCFE59F639BC3 /* Exception.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

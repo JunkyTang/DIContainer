@@ -40,6 +40,26 @@ class Tests: XCTestCase {
         }
     }
     
+    // MARK: - Inject Property Wrapper Tests
+
+    @MainActor
+    func testInjectDependencySuccessfully() {
+        // 正向测试
+        try? DIContainer.shared.register(interface: ModuleTypeA.self, impl: ModuleA())
+        let something = Something()
+        
+        XCTAssertNotNil(something.moduleA)
+        XCTAssertEqual(something.moduleA?.name, "Module A")
+    }
+
+    @MainActor
+    func testInjectDependencyThrowsErrorWhenNotRegistered() {
+        // 反向测试
+        let something = Something()
+        XCTAssertNil(something.moduleA)
+    }
+
+
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
@@ -65,3 +85,13 @@ class ModuleA2: ModuleTypeA {
 
 
 protocol ModuleTypeB {}
+
+
+class Something {
+    
+    @Inject
+    var moduleA: ModuleTypeA?
+    
+}
+
+

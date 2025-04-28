@@ -48,6 +48,19 @@ try container.register(interface: StoreService.self, impl: StoreServiceImpl())
 ```swift
 let storeService = container.resolve(StoreService.self)
 ```
+or
+```swift
+class SomeViewController {
+    // Inject here
+    @Inject var storeService: StoreService?
+    
+    func viewDidLoad() {
+        super.viewDidLoad()
+        // Use the injected storeService here
+        try? storeService?.storeDetailPage()
+    }
+}
+```
 
 ---
 
