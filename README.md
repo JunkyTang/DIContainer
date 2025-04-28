@@ -1,1 +1,3 @@
 # DIContainer
+
+[![CI](https://github.com/JunkyTang/DIContainer/actions/workflows/ci.yml/badge.svg)](https://github.com/JunkyTang/DIContainer/actions)  [![CD](https://github.com/JunkyTang/DIContainer/actions/workflows/cd.yml/badge.svg)](https://github.com/JunkyTang/DIContainer/actions)  [![License](https://img.shields.io/github/license/JunkyTang/DIContainer)](https://github.com/JunkyTang/DIContainer/blob/main/LICENSE)  [![Release](https://img.shields.io/github/v/release/JunkyTang/DIContainer)](https://github.com/JunkyTang/DIContainer/releases)
