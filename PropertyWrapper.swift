@@ -9,13 +9,19 @@ import Foundation
 
 @MainActor
 @propertyWrapper
-public struct Inject<T> {
+public class Inject<T> {
     
     
     public var wrappedValue: T? {
+        if cache {
+            guard cacheInstance == nil else {
+                return cacheInstance
+            }
+        }
         var res: T? = nil
         do {
             res = try container.resolve(interface: T.self)
+            cacheInstance = res
         } catch {
             print(error.localizedDescription)
         }
@@ -24,9 +30,51 @@ public struct Inject<T> {
     
     var container: DIContainer
     
+    var cacheInstance: T?
     
-    public init(container: DIContainer? = nil) {
+    var cache: Bool
+    
+    public init(container: DIContainer? = nil, cache: Bool = true) {
         self.container = container ?? .shared
+        self.cache = cache
     }
 }
 
+@MainActor
+@propertyWrapper
+public class InjectDefault<T> {
+    
+    
+    public var wrappedValue: T {
+        if cache {
+            if let instance = cacheInstance {
+                return instance
+            }
+        }
+        var res: T? = nil
+        do {
+            res = try container.resolve(interface: T.self)
+            cacheInstance = res
+        } catch {
+            print(error.localizedDescription)
+        }
+        if let res = res {
+            return res
+        }
+        return defoult
+    }
+    
+    var container: DIContainer
+    
+    var cacheInstance: T?
+    
+    var cache: Bool
+    
+    var defoult: T
+    
+    public init(container: DIContainer? = nil, cache: Bool = true, defoult: T) {
+        self.container = container ?? .shared
+        self.cache = cache
+        self.defoult = defoult
+    }
+}
