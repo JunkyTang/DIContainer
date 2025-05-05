@@ -33,7 +33,7 @@ public class DIContainer {
     }
     
     // New function to clear all modules
-    public func clearModules() {
+    public func removeAll() {
         modules.removeAll()
     }
 }

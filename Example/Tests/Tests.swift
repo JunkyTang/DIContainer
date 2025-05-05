@@ -6,7 +6,7 @@ class Tests: XCTestCase {
     @MainActor
     override func setUp() {
         super.setUp()
-        DIContainer.shared.clearModules()
+        DIContainer.shared.removeAll()
     }
     
     override func tearDown() {
@@ -60,7 +60,43 @@ class Tests: XCTestCase {
         XCTAssertNil(something.moduleA)
     }
 
+    @MainActor
+    func testInjectCacheDependencySuccessfully() {
+        // 正向测试
+        try? DIContainer.shared.register(interface: ModuleTypeA.self, impl: ModuleA())
+        let something = Something()
+        _ = something.cacheModuleA
+        DIContainer.shared.removeAll()
+        XCTAssertNotNil(something.cacheModuleA)
+        XCTAssertEqual(something.cacheModuleA?.name, "Module A")
+    }
+    
+    @MainActor
+    func testInjectCacheDependencyFailsWhenNotRegistered() {
+        // 反向测试
+        let something = Something()
+        XCTAssertNil(something.cacheModuleA)
+    }
 
+    @MainActor
+    func testInjectDefault_UseResolvedInstance() {
+        // 注册 ModuleA 到 DIContainer
+        try? DIContainer.shared.register(interface: ModuleTypeA.self, impl: ModuleA())
+        let something = Something()
+
+        // 因为 InjectDefault 会优先 resolve，所以应返回 ModuleA 而不是默认的 ModuleA2
+        XCTAssertEqual(something.defaultModuleA.name, "Module A")
+    }
+    
+    @MainActor
+    func testInjectDefault_UseDefaultFallback() {
+        // 确保未注册 ModuleTypeA
+        DIContainer.shared.removeAll()
+        let something = Something()
+
+        // 因为容器中没有注册，应该使用默认值 ModuleA2
+        XCTAssertEqual(something.defaultModuleA.name, "Module A2")
+    }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
@@ -92,6 +128,12 @@ class Something {
     
     @Inject
     var moduleA: ModuleTypeA?
+    
+    @Inject(cache: true)
+    var cacheModuleA: ModuleTypeA?
+    
+    @InjectDefault(defoult: ModuleA2())
+    var defaultModuleA: ModuleTypeA
     
 }
 
