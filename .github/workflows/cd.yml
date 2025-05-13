@@ -1,52 +1,80 @@
 name: CD
 
 on:
-  push:
-    tags:
-      - 'v*'
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened, closed]
 
 jobs:
-  merge:
-    runs-on: ubuntu-latest
+  build-and-test:
+    if: github.event.action != 'closed'
+    runs-on: macos-latest
+
     steps:
-      - name: Checkout the repo
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Xcode Version
+        run: sudo xcode-select -s /Applications/Xcode_15.2.app  # 或根据需要更换版本
+
+      - name: Install Dependencies
+        run: |
+          brew install cocoapods # 如果你用 CocoaPods
+          pod install
+
+      - name: Build
+        run: |
+            cd Example
+            xcodebuild build \
+              -workspace DIContainer.xcworkspace \
+              -scheme DIContainer-Example \
+              -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+              -configuration Debug \
+              -xcconfig DisableSigning.xcconfig
+
+      - name: Run Tests
+        run: |
+            cd Example
+            xcodebuild test \
+              -workspace DIContainer.xcworkspace \
+              -scheme DIContainer-Example \
+              -only-testing:DIContainer_Tests \
+              -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+              -configuration Debug \
+              -xcconfig DisableSigning.xcconfig
+
+  auto-tag:
+    if: github.event.pull_request.merged == true && github.event.action == 'closed' && startsWith(github.head_ref, 'release/')
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
-            persist-credentials: true
-            token: ${{ secrets.GITHUB_TOKEN }}
-            fetch-depth: 0
+          ref: main
+          fetch-depth: 0
 
-      - name: Set up Git user
+      - name: Get tag from branch
+        id: get_tag
+        run: |
+          branch="${{ github.head_ref }}"
+          version="${branch#release/}"
+          tag="v$version"
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+
+      - name: Create Tag
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Verify tag source branch is dev
-        run: |
-          git fetch origin dev
-          TAG_COMMIT=$(git rev-list -n 1 ${{ github.ref }})
-          DEV_COMMIT=$(git rev-parse origin/dev)
-          if [ "$TAG_COMMIT" != "$DEV_COMMIT" ]; then
-            echo "❌ Tag must be created from the tip of dev branch."
-            exit 1
-          fi
-
-      - name: Fetch dev and main branches
-        run: |
-            git fetch origin dev
-            git fetch origin main
-
-      - name: Merge dev into main
-        run: |
-          git checkout main
-          git merge origin/dev --no-ff -m "Auto-merge dev into main on tag ${{ github.ref_name }}"
-          git push origin main
+          git tag ${{ steps.get_tag.outputs.tag }}
+          git push origin ${{ steps.get_tag.outputs.tag }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          body: "Auto-generated release from tag ${{ github.ref_name }}."
+          tag_name: ${{ steps.get_tag.outputs.tag }}
+          name: Release ${{ steps.get_tag.outputs.tag }}
+          body: "Auto-generated release for ${{ steps.get_tag.outputs.tag }}."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
