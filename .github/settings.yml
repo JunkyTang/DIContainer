@@ -1,5 +1,10 @@
+repository:
+  name: your-ios-open-source-project
+  description: An open-source iOS project with CI/CD and protected branching.
+  private: false
+  has_issues: true
+  has_wiki: false
 
-# .github/settings.yml 示例
 branches:
   - name: main
     protection:
@@ -7,7 +12,7 @@ branches:
         required_approving_review_count: 1
       required_status_checks:
         strict: true
-        contexts: ["build-and-test"]
+        contexts: ["Build app target", "Run unit tests"]
       enforce_admins: true
       restrictions:
         users: []
@@ -19,16 +24,16 @@ branches:
         required_approving_review_count: 1
       required_status_checks:
         strict: true
-        contexts: ["build-and-test"]
+        contexts: ["Build app target", "Run unit tests"]
       restrictions:
         users: []
-        teams: ["dev-team"]
+        teams: [""]
 
   - name: release/*
     protection:
       required_status_checks:
         strict: true
-        contexts: ["build-and-test"]
+        contexts: ["Build app target", "Run unit tests"]
       required_pull_request_reviews:
         required_approving_review_count: 1
       restrictions:
@@ -37,9 +42,14 @@ branches:
 
   - name: hotfix/*
     protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
       required_status_checks:
         strict: true
-        contexts: ["build-and-test"]
+        contexts: ["Build app target", "Run unit tests"]
       restrictions:
         users: []
         teams: ["admins"]
+
+  # feature branches are used for development and do not require protection
+  - name: feature/*

@@ -1,0 +1,17 @@
+name: Sync GitHub Settings
+
+on:
+  push:
+    paths:
+      - '.github/settings.yml'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync repository settings
+        uses: reposaur/settings-sync@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
