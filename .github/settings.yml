@@ -53,3 +53,4 @@ branches:
 
   # feature branches are used for development and do not require protection
   - name: feature/*
+  
