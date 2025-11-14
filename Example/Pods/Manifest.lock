@@ -1,5 +1,5 @@
 PODS:
-  - DIContainer (0.1.0)
+  - DIContainer (1.1.1)
 
 DEPENDENCIES:
   - DIContainer (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DIContainer: 66d99d17b4f23e9b8224d524ff98b81253c5e7aa
+  DIContainer: 4a95ccb9c5feae127b9eb4c300ebeb8d411c5fdf
 
 PODFILE CHECKSUM: 342ce792b796873b66a78de6d3cf5af9a25dc058
 
