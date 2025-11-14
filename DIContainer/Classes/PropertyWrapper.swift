@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor
+
 @propertyWrapper
 public class Inject<T> {
     
@@ -34,13 +34,13 @@ public class Inject<T> {
     
     var cache: Bool
     
-    public init(container: DIContainer? = nil, cache: Bool = true) {
-        self.container = container ?? .shared
+    public init(container: DIContainer = .shared, cache: Bool = true) {
+        self.container = container
         self.cache = cache
     }
 }
 
-@MainActor
+
 @propertyWrapper
 public class InjectDefault<T> {
     
@@ -72,8 +72,8 @@ public class InjectDefault<T> {
     
     var defoult: T
     
-    public init(container: DIContainer? = nil, cache: Bool = true, defoult: T) {
-        self.container = container ?? .shared
+    public init(container: DIContainer = .shared, cache: Bool = true, defoult: T) {
+        self.container = container
         self.cache = cache
         self.defoult = defoult
     }
