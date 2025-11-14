@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 public class DIContainer {
     
     public static let shared = DIContainer()
